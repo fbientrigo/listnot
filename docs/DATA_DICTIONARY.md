@@ -46,9 +46,14 @@ A subject's participation within one campaign.
 | subject_id | str | FK→Subject | |
 | study_subject_uid | str | no | `suid_…`; stable within campaign |
 | consent_status | enum | no | `unknown` \| `granted` \| `withdrawn` (synthetic: `granted`) |
+| sex | str | yes | Coarse group variable `F`\|`M` (not a direct identifier) |
+| age_band | str | yes | **Coarse** decade band, e.g. `40-49` — never an exact age |
 | created_at | datetime | no | |
 
 Unique: (`campaign_id`, `subject_id`). Relationships: 1 StudySubject → N Sample.
+`sex`/`age_band` are coarse epidemiological group variables used by the statistical
+layer's `group_by` (`API_CONTRACT.md §2`); they are safe under min-group suppression
+and are **not** direct identifiers.
 
 ## 4. Sample
 A biological sample collected from a study subject.

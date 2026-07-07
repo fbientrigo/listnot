@@ -19,15 +19,25 @@ system) and receives a **minimal, validated, identity-safe copy** of operational
 Modular Python monolith with explicit privacy boundaries (ingestion → protected operational →
 research/statistical → export zones). See [`docs/SDD.md`](docs/SDD.md).
 
-## Getting started (planned)
+## Getting started
+
+The MVP is implemented (modules `identity → schemas → database → synthetic →
+ingestion → qc → privacy → api/dashboard/reporting`) and tested end-to-end.
 
 ```bash
 cp .env.example .env
 python scripts/generate_secret.py --write   # demo mode only
 pip install -e ".[dev]"
-pytest -q
-make demo          # full synthetic pipeline (steps 1–16, see docs/SDD.md)
+make lint test     # ruff + pytest (synthetic data, no real RUT anywhere)
+make demo          # full synthetic pipeline: campaign → QC → stats → report → export
+make api           # uvicorn apps.api.main:app  (FastAPI, docs/API_CONTRACT.md)
+make dashboard     # streamlit run apps/dashboard/app.py  (needs .[dashboard])
 ```
+
+`make demo` regenerates the world deterministically, writes an aggregated report
+(`data/reports/`) and an audited export (`data/exports/`), then runs
+`scripts/scan_for_forbidden_identifiers.py` to prove **zero** RUT-shaped values
+were persisted (`rut_persisted = false`).
 
 ## Documentation
 
