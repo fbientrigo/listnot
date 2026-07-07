@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pucv_aq_qc"
+version = "0.1.0"
+description = "Reproducible data-quality, pseudonymization and QC layer for PUCV / Centro de Bioanálisis Clínico (synthetic-data MVP)."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+    { name = "Fabian" },
+    { name = "Beatriz" },
+]
+dependencies = [
+    "pydantic>=2",
+    "pydantic-settings>=2",
+    "sqlmodel>=0.0.14",
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+    "httpx>=0.27",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "ruff>=0.4",
+]
+dashboard = [
+    "streamlit>=1.33",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests", "scripts"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]

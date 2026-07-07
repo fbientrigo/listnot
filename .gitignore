@@ -9,9 +9,11 @@ data/*.db
 data/synthetic/*
 data/staging/*
 data/exports/*
+data/reports/*
 !data/synthetic/.gitkeep
 !data/staging/.gitkeep
 !data/exports/.gitkeep
+!data/reports/.gitkeep
 
 # Python
 __pycache__/
