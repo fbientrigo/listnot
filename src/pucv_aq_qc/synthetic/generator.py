@@ -185,6 +185,8 @@ def generate_world(
             subject_id=subject.id,
             study_subject_uid=suid,
             consent_status="granted",
+            sex=rng.choice(["F", "M"]),
+            age_band=rng.choice(["20-29", "30-39", "40-49", "50-59", "60-69"]),
         )
         world.subjects.append(subject)
         world.study_subjects.append(study)

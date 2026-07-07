@@ -57,6 +57,11 @@ class StudySubject(SQLModel, table=True):
     subject_id: str = Field(foreign_key="subject.id", index=True)
     study_subject_uid: str = Field(index=True)
     consent_status: str = "granted"
+    # Coarse epidemiological group variables (NOT direct identifiers): used by the
+    # statistical layer's group_by (docs/API_CONTRACT.md §2). age_band is a decade
+    # band, never an exact age; sex is F/M. Both are safe under min-group suppression.
+    sex: str | None = None
+    age_band: str | None = None
     created_at: datetime = Field(default_factory=_utcnow)
 
 
