@@ -32,8 +32,13 @@ def get_engine(database_url: str | None = None) -> Engine:
 
 
 def get_session(database_url: str | None = None) -> Session:
-    """Return a new synchronous session bound to the engine."""
-    return Session(get_engine(database_url))
+    """Return a new synchronous session bound to the engine.
+
+    ``expire_on_commit=False`` so generated/queried ORM instances stay usable
+    after the transactional scope closes (we routinely read ids/values from
+    detached objects for reports and API responses).
+    """
+    return Session(get_engine(database_url), expire_on_commit=False)
 
 
 @contextmanager
