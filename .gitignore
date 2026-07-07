@@ -1,0 +1,37 @@
+# Secrets & environment — NEVER commit
+.env
+.env.*
+!.env.example
+
+# Local data (synthetic DBs, staging, exports) — must never contain identifiers,
+# but is gitignored anyway so nothing generated leaks into history.
+data/*.db
+data/synthetic/*
+data/staging/*
+data/exports/*
+!data/synthetic/.gitkeep
+!data/staging/.gitkeep
+!data/exports/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.env.local
+
+# Tooling
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
